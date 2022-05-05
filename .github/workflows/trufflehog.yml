@@ -32,6 +32,6 @@ jobs:
         uses: trufflesecurity/trufflehog@v3.4.3
         with:
           # Repository path
-          path: /
+          path: https://github.com/ph20Eoow/githubActionTrial/
           # Start scanning from here (usually main branch).
-          base: /
+          base: main
