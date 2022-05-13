@@ -27,6 +27,7 @@ jobs:
           head: HEAD
       - name: Create
         id: create
+        uses: atlassian/gajira-create@v2.0.1
         with:
           project: SEC
           issuetype: Vulnerability
