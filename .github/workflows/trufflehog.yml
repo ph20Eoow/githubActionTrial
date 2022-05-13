@@ -27,7 +27,6 @@ jobs:
           head: HEAD
       - name: Create
         id: create
-        uses: ./
         with:
           project: SEC
           issuetype: Vulnerability
