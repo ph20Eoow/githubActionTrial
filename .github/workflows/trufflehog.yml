@@ -28,7 +28,7 @@ jobs:
         continue-on-error: true
       - name: Create
         continue-on-error: true
-        if: ${{ steps.trufflehog.outputs == 'failure' }}
+        if: contains(steps.trufflehog.outputs, 'Found unverified result')
         id: create
         uses: atlassian/gajira-create@v2.0.1
         with:
@@ -37,7 +37,7 @@ jobs:
           summary: |
             Github Action | TruffleHog | ${{ github.repository }}
           description: |
-            TruffleHog result: \n${{join(steps.trufflehog.outputs.*, '\n')}}
+            TruffleHog result: ${{join(steps.trufflehog.outputs.*, '\n')}}
       - name: Log created issue
         run: echo "Issue ${{ steps.create.outputs.issue }} was created"
         
