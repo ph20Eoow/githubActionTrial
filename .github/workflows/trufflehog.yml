@@ -28,7 +28,7 @@ jobs:
         continue-on-error: true
       - name: Create
         continue-on-error: true
-        if: contains(steps.trufflehog.outputs, 'Found unverified result')
+        if: ${{contains(steps.trufflehog.outputs, 'Found unverified result')}}
         id: create
         uses: atlassian/gajira-create@v2.0.1
         with:
