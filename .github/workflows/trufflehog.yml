@@ -27,7 +27,7 @@ jobs:
           head: HEAD
         continue-on-error: true
       - name: Create
-        if: contains(join(steps.trufflehog.outputs.*, '\n'), 'Found unverified result')
+        if: contains(steps.trufflehog.outputs.*, 'Found')
         id: create
         uses: atlassian/gajira-create@v2.0.1
         with:
