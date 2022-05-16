@@ -34,7 +34,7 @@ jobs:
           project: SEC
           issuetype: Vulnerability
           summary: |
-            Github Action | TruffleHog | ${{ github.repository }}
+            [Github Action | TruffleHog] | ${{ github.repository }}
           description: |
             TruffleHog result: ${{join(steps.trufflehog.outputs.*, '\n')}}
       - name: Log created issue
