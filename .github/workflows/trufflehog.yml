@@ -36,7 +36,7 @@ jobs:
           summary: |
             [Github Action | TruffleHog] | ${{ github.repository }}
           description: |
-            TruffleHog result: ${{join(steps.trufflehog.outputs.*, '\n')}}
+            TruffleHog result: join(${{steps.trufflehog.outputs.*}}, '\n')
       - name: Log created issue
         run: echo "Issue ${{ steps.trufflehog.outputs.* }} was created"
         
