@@ -26,17 +26,25 @@ jobs:
           base: ${{ github.event.repository.default_branch }}
           head: HEAD
         continue-on-error: true
-      - name: Create
-        if: contains(${{steps.trufflehog.outputs.*}}, 'Found')
-        id: create
-        uses: atlassian/gajira-create@v2.0.1
-        with:
-          project: SEC
-          issuetype: Vulnerability
-          summary: |
-            [Github Action | TruffleHog] | ${{ github.repository }}
-          description: |
-            TruffleHog result: join(${{steps.trufflehog.outputs.*}}, '\n')
+      # - name: Create
+      #   id: create
+      #   if: contains(${{steps.trufflehog.outputs.*}}, 'Found')
+      #   uses: atlassian/gajira-create@v2.0.1
+      #   with:
+      #     project: SEC
+      #     issuetype: Vulnerability
+      #     summary: |
+      #       [Github Action | TruffleHog] | ${{ github.repository }}
+      #     description: |
+      #       TruffleHog result: join(${{steps.trufflehog.outputs.*}}, '\n')
       - name: Log created issue
         run: echo "Issue ${{ steps.trufflehog.outputs.* }} was created"
-        
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: tonylab
+          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+          SLACK_MESSAGE: '${{steps.trufflehog.outputs.*}}'
+          SLACK_TITLE: TruffleHog Findings
+          SLACK_USERNAME: GAbot
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
