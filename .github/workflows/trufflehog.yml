@@ -36,11 +36,11 @@ jobs:
       #   continue-on-error: true
       - name: Echo WORKSPACE
         run: "ls -la $GITHUB_WORKSPACE/.github/actions"
-      - name: Hello world action step
-        id: hello
-        uses: ./.github/actions/docker-action
+      - name: TruffleHog Scan from Private Action 
+        id: trufflehog
+        uses: ./.github/actions/truffle-hog
         with:
-          who-to-greet: 'Mona the Octocat'
+          path: $GITHUB_WORKSPACE
       # Use the output from the `hello` step
       - name: Get the output time
         run: echo "The time was ${{ steps.hello.outputs.time }}"
