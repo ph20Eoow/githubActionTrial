@@ -34,8 +34,7 @@ jobs:
       #     head: HEAD
       #   run: echo "::set-output name=test::test"
       #   continue-on-error: true
-      - name: Echo WORKSPACE
-        run: "ls -la $GITHUB_WORKSPACE"
+      
       - name: TruffleHog Scan from Private Action 
         id: trufflehog
         uses: ./.github/actions/trufflehog
@@ -60,6 +59,10 @@ jobs:
       #       TruffleHog result: join(${{steps.trufflehog.outputs.*}}, '\n')
       - name: access the result
         run: echo "Issue ${{ steps.trufflehog.outputs.result }} was created"
+      - name: Echo WORKSPACE
+        run: "ls -la $GITHUB_WORKSPACE"
+      - name: access the result by cat
+        run: cat ./output.json
       - name: access the result from helloworld
         run: echo "Issue ${{ steps.greeting.outputs.time }} was created"
       - name: Send custom JSON data to Slack workflow
