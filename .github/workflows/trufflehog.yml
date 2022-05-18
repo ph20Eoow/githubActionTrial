@@ -35,7 +35,7 @@ jobs:
       #   run: echo "::set-output name=test::test"
       #   continue-on-error: true
       - name: Echo WORKSPACE
-        run: echo "$github.GITHUB_WORKSPACE"
+        run: "ls -la $GITHUB_WORKSPACE"
       - name: Hello world action step
         id: hello
         uses: ./.github/actions/docker-action
