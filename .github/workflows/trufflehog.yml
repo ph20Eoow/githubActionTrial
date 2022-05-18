@@ -40,31 +40,12 @@ jobs:
         uses: ./.github/actions/trufflehog
         with:
           path: ${{ github.workspace }}
-      - name: Sample docker action from Private Action 
-        id: greeting
-        uses: ./.github/actions/docker-action
-        with:
-          who-to-greet: 'Tony'
-      
-      # - name: Create
-      #   id: create
-      #   if: contains(${{steps.trufflehog.outputs.*}}, 'Found')
-      #   uses: atlassian/gajira-create@v2.0.1
-      #   with:
-      #     project: SEC
-      #     issuetype: Vulnerability
-      #     summary: |
-      #       [Github Action | TruffleHog] | ${{ github.repository }}
-      #     description: |
-      #       TruffleHog result: join(${{steps.trufflehog.outputs.*}}, '\n')
       - name: access the result
         run: echo "Issue ${{ steps.trufflehog.outputs.result }} was created"
       - name: Echo WORKSPACE
-        run: "ls -la $GITHUB_WORKSPACE"
-      - name: access the result by cat
-        run: cat ./output.json
-      - name: access the result from helloworld
-        run: echo "Issue ${{ steps.greeting.outputs.time }} was created"
+        run: "ls -la ${{ github.workspace }}"
+      # - name: access the result by cat
+      #   run: cat ./output.json
       - name: Send custom JSON data to Slack workflow
         id: slack
         uses: slackapi/slack-github-action@v1.18.0
@@ -78,7 +59,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}\n```toJSON(${{steps.trufflehog.outputs.result}})```"
+                    "text": ${{steps.trufflehog.outputs.result}}
                   }
                 }
               ]
