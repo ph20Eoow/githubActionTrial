@@ -8,7 +8,7 @@ jobs:
   TruffleHog:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.trufflehog.outputs.test }}
+      output1: ${{ steps.trufflehog.outputs.result }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -42,8 +42,8 @@ jobs:
         with:
           path: $GITHUB_WORKSPACE
       # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
+      # - name: Get the output time
+      #   run: echo "The time was ${{ steps.trufflehog.outputs.result }}"
       # - name: Create
       #   id: create
       #   if: contains(${{steps.trufflehog.outputs.*}}, 'Found')
@@ -70,7 +70,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}\n${{ steps.trufflehog.outputs.* }}"
+                    "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}\n${{ steps.trufflehog.outputs.result }}"
                   }
                 }
               ]
