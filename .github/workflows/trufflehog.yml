@@ -31,7 +31,7 @@ jobs:
       #   continue-on-error: true
       - name: Hello world action step
         id: hello
-        uses: actions/docker-action
+        uses: ./actions/docker-action
         with:
           who-to-greet: 'Mona the Octocat'
       # Use the output from the `hello` step
