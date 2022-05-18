@@ -31,6 +31,7 @@ jobs:
         with:
           path: ${{ github.workspace }}
       - name: access the result
+        if: steps.trufflehog.outputs.conclusion == 'success'
         run: echo "Issue ${{ steps.trufflehog.outputs.result }} was created"
       - name: Echo WORKSPACE
         run: "ls -la ${{ github.workspace }}"
