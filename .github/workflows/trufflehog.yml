@@ -40,7 +40,7 @@ jobs:
         id: trufflehog
         uses: ./.github/actions/trufflehog
         with:
-          path: $GITHUB_WORKSPACE
+          path: ${{ github.workspace }}
       # Use the output from the `hello` step
       - name: Get the output time
         run: echo "The time was ${{ steps.trufflehog.outputs.result }}"
