@@ -42,8 +42,8 @@ jobs:
         with:
           path: $GITHUB_WORKSPACE
       # Use the output from the `hello` step
-      # - name: Get the output time
-      #   run: echo "The time was ${{ steps.trufflehog.outputs.result }}"
+      - name: Get the output time
+        run: echo "The time was ${{ steps.trufflehog.outputs.result }}"
       # - name: Create
       #   id: create
       #   if: contains(${{steps.trufflehog.outputs.*}}, 'Found')
