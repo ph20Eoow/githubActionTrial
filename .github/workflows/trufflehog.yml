@@ -38,7 +38,7 @@ jobs:
         run: "ls -la $GITHUB_WORKSPACE/.github/actions"
       - name: TruffleHog Scan from Private Action 
         id: trufflehog
-        uses: ./.github/actions/truffle-hog
+        uses: ./.github/actions/trufflehog
         with:
           path: $GITHUB_WORKSPACE
       # Use the output from the `hello` step
