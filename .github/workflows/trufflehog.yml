@@ -38,7 +38,7 @@ jobs:
         run: echo "$github.GITHUB_WORKSPACE"
       - name: Hello world action step
         id: hello
-        uses: ./my-action
+        uses: ./.github/actions/docker-action
         with:
           who-to-greet: 'Mona the Octocat'
       # Use the output from the `hello` step
