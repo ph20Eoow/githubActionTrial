@@ -7,6 +7,8 @@ on:
 jobs:
   TruffleHog:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.trufflehog.outputs.test }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -18,15 +20,17 @@ jobs:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-      - name: TruffleHog OSS
-        id: trufflehog
-        uses: trufflesecurity/trufflehog@v3.4.1
-        with:
-          path: ./
-          base: ${{ github.event.repository.default_branch }}
-          head: HEAD
-        run: echo "::set-output name=result::test"
-        continue-on-error: true
+      # - name: TruffleHog OSS
+      #   id: trufflehog
+      #   uses: trufflesecurity/trufflehog@v3.4.1
+      #   with:
+      #     path: ./
+      #     base: ${{ github.event.repository.default_branch }}
+      #     head: HEAD
+      #   run: echo "::set-output name=test::test"
+      #   continue-on-error: true
+      - name: TruffleHogCustom
+        run: 'docker run -it -v "$PWD:/pwd" trufflesecurity/trufflehog:latest github --repo ${{ github.event.repository.default_branch }}'
       # - name: Create
       #   id: create
       #   if: contains(${{steps.trufflehog.outputs.*}}, 'Found')
