@@ -17,7 +17,7 @@ jobs:
       - name: Checkout private tool code
         uses: actions/checkout@v3
         with:
-          repository: ph20Eoow/githubActionTrial/.github/actions/docker-action
+          repository: ph20Eoow/githubActionTrial/
           path: ./actions/docker-action
       - name: Login
         uses: atlassian/gajira-login@master
