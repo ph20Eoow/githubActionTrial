@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: ph20Eoow/private_action
-          path: .github/actions/my-action
+          path: /actions/my-action
       - name: Login
         uses: atlassian/gajira-login@master
         env:
