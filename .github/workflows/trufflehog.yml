@@ -8,7 +8,7 @@ jobs:
   TruffleHog:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.trufflehog.outputs.result }}
+      result: ${{ steps.trufflehog.outputs.result }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -43,7 +43,7 @@ jobs:
           path: ${{ github.workspace }}
       # Use the output from the `hello` step
       - name: Get the output time
-        run: echo "The time was ${{ steps.trufflehog.outputs.* }}"
+        run: echo "The time was ${{ steps.trufflehog.outputs.result }}"
       # - name: Create
       #   id: create
       #   if: contains(${{steps.trufflehog.outputs.*}}, 'Found')
