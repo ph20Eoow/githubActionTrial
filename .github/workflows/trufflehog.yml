@@ -15,10 +15,10 @@ jobs:
         with:
           fetch-depth: 0
       - name: Checkout private tool code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
           repository: ph20Eoow/private_action
-          path: ./actions
+          path: .github/actions/my-action
       - name: Login
         uses: atlassian/gajira-login@master
         env:
@@ -36,7 +36,7 @@ jobs:
       #   continue-on-error: true
       - name: Hello world action step
         id: hello
-        uses: ./actions/docker-action
+        uses: .github/actions/my-action
         with:
           who-to-greet: 'Mona the Octocat'
       # Use the output from the `hello` step
