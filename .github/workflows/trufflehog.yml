@@ -29,7 +29,9 @@ jobs:
         id: trufflehog
         uses: ./.github/actions/trufflehog
         with:
-          path: ${{ github.workspace }}
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
   PrintResult:
     runs-on: ubuntu-latest
     needs: TruffleHog
