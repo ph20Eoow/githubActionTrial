@@ -41,21 +41,9 @@ jobs:
         run: echo "Issue ${{ needs.TruffleHog.outputs.result }} was created"
       - name: Echo WORKSPACE
         run: "ls -la ${{ github.workspace }}"
-      # - name: access the result by cat
-      #   run: cat ./output.json
-      - name: Send custom JSON data to Slack workflow
-        id: slack
-        uses: slackapi/slack-github-action@v1.18.0
-        with:
-          # For posting a rich message using Block Kit
-          payload: |
-            ${{needs.TruffleHog.outputs.result}}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
       - name: Create
         id: create
-        if: contains(${{needs.TruffleHog.outputs.result}}, 'SourceMetadata')
+        if: contains('${{needs.TruffleHog.outputs.result}}', '[')
         run: echo "Issue ${{ needs.TruffleHog.outputs.result }} was created"
       #   uses: atlassian/gajira-create@v2.0.1
       #   with:
