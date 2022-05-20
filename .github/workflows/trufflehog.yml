@@ -39,7 +39,7 @@ jobs:
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
       - name: Jira Create Issue
         id: createIssue
-        if: ${{ needs.TruffleHog.outputs.isIssue }}
+        if: ${{ needs.TruffleHog.outputs.isIssue == 'true'}}
         run: | 
           echo hello
         # uses: atlassian/gajira-create@v2.0.1
