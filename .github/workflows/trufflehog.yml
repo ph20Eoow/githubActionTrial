@@ -17,9 +17,8 @@ jobs:
       - name: Checkout private tool code
         uses: actions/checkout@v2
         with:
-          repository: ph20Eoow/private_action
+          repository: skillz/security-toolbelt
           path: ./.github/
-      
       - name: TruffleHog Scan from Private Action 
         id: trufflehog
         uses: ./.github/actions/trufflehog
@@ -37,20 +36,16 @@ jobs:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-      - name: access the result
-        run: echo "Issue ${{ needs.TruffleHog.outputs.result }} was created"
-      - name: Echo WORKSPACE
-        run: "ls -la ${{ github.workspace }}"
       - name: Create
         id: create
         if: contains('${{needs.TruffleHog.outputs.result}}', '[')
-        run: echo "Issue ${{ needs.TruffleHog.outputs.result }} was created"
-      #   uses: atlassian/gajira-create@v2.0.1
-      #   with:
-      #     project: SEC
-      #     issuetype: Vulnerability
-      #     summary: |
-      #       [Github Action | TruffleHog] | ${{ github.repository }}
-      #     description: |
-      #       TruffleHog result: join(${{steps.trufflehog.outputs.*}}, '\n')
+        uses: atlassian/gajira-create@v2.0.1
+        with:
+          project: SEC
+          issuetype: Vulnerability
+          fields: '[ {"labels": "vulnerability" }, {"labels": "security" }, {"labels": "${{ github.repository }}" }, {"labels": "trufflehog"}, , {"labels": "github action"}, {"labels": "na"}]'
+          summary: |
+            [Github Action | TruffleHog] | ${{ github.repository }}
+          description: |
+            TruffleHog result:\n${{ needs.TruffleHog.outputs.result }}
       
