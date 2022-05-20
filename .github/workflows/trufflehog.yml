@@ -40,15 +40,13 @@ jobs:
       - name: Jira Create Issue
         id: createIssue
         if: ${{ needs.TruffleHog.outputs.isIssue == 'true'}}
-        run: | 
-          echo hello
-        # uses: atlassian/gajira-create@v2.0.1
-        # with:
-        #   project: SEC
-        #   issuetype: Vulnerability
-        #   fields: '{"labels": ["vulnerability","security","${{ github.repository }}","trufflehog","GithubAction","env:na" ]}'
-        #   summary: |
-        #     [Github Action | TruffleHog] | ${{ github.repository }}
-        #   description: |
-        #     TruffleHog result:\n${{ needs.TruffleHog.outputs.result }}
+        uses: atlassian/gajira-create@v2.0.1
+        with:
+          project: SEC
+          issuetype: Vulnerability
+          fields: '{"labels": ["vulnerability","security","${{ github.repository }}","trufflehog","GithubAction","env:na" ]}'
+          summary: |
+            [Github Action | TruffleHog] | ${{ github.repository }}
+          description: |
+            TruffleHog result:\n${{ needs.TruffleHog.outputs.result }}
       
