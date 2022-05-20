@@ -17,7 +17,7 @@ jobs:
       - name: Checkout private tool code
         uses: actions/checkout@v2
         with:
-          repository: skillz/security-toolbelt
+          repository: ph20Eoow/private_action
           path: ./.github/
       - name: TruffleHog Scan from Private Action 
         id: trufflehog
