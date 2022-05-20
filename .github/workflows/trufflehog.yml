@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       result: ${{ steps.trufflehog.outputs.result }}
+      isIssue: ${{ steps.trufflehog.outputs.isIssue }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -30,22 +31,24 @@ jobs:
     runs-on: ubuntu-latest
     needs: TruffleHog
     steps:
-      - name: Login
+      - name: Jira Login
         uses: atlassian/gajira-login@master
         env:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-      - name: Create
+      - name: Jira Create Issue
         id: create
-        if: contains('${{needs.TruffleHog.outputs.result}}', '[')
-        uses: atlassian/gajira-create@v2.0.1
-        with:
-          project: SEC
-          issuetype: Vulnerability
-          fields: '{"labels": ["vulnerability","security","${{ github.repository }}","trufflehog","github action","na" ]}'
-          summary: |
-            [Github Action | TruffleHog] | ${{ github.repository }}
-          description: |
-            TruffleHog result:\n${{ needs.TruffleHog.outputs.result }}
+        if: contains('${{needs.TruffleHog.outputs.isIssue}}', 'true')
+        run: | 
+          echo hello
+        # uses: atlassian/gajira-create@v2.0.1
+        # with:
+        #   project: SEC
+        #   issuetype: Vulnerability
+        #   fields: '{"labels": ["vulnerability","security","${{ github.repository }}","trufflehog","GithubAction","env:na" ]}'
+        #   summary: |
+        #     [Github Action | TruffleHog] | ${{ github.repository }}
+        #   description: |
+        #     TruffleHog result:\n${{ needs.TruffleHog.outputs.result }}
       
