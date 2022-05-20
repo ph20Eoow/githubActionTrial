@@ -43,7 +43,7 @@ jobs:
         with:
           project: SEC
           issuetype: Vulnerability
-          fields: '[ {"labels": "vulnerability" }, {"labels": "security" }, {"labels": "${{ github.repository }}" }, {"labels": "trufflehog"}, , {"labels": "github action"}, {"labels": "na"}]'
+          fields: '{"labels": ["vulnerability","security","${{ github.repository }}","trufflehog","github action","na" ]}'
           summary: |
             [Github Action | TruffleHog] | ${{ github.repository }}
           description: |
